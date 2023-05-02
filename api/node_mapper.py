@@ -96,7 +96,7 @@ def register_node(node_type, category_path=None):
     setattr(Type, snake_case_name, build_node_method(node_type))
     parent_props = [prop.identifier for base in node_type.__bases__ for prop in base.bl_rna.properties]
     for prop in node_type.bl_rna.properties:
-        if not prop.identifier in parent_props and prop.type == 'ENUM':
+        if (not prop.identifier in parent_props and prop.type == 'ENUM') or prop.identifier == 'type':
             if node_namespace_name not in globals():
                 class NodeNamespace: pass
                 NodeNamespace.__name__ = node_namespace_name
